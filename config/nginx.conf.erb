@@ -1,6 +1,6 @@
 daemon off;
 # Heroku dynos have at least 4 cores.
-worker_processes <%= ENV['NGINX_WORKERS'] || 4 %>;
+worker_processes <%= ENV['NGINX_WORKERS'] || 4 %>
 
 events {
 	use epoll;
@@ -19,6 +19,7 @@ http {
 	log_format l2met 'measure#nginx.service=$request_time request_id=$http_x_request_id';
 	access_log <%= ENV['NGINX_ACCESS_LOG_PATH'] || 'logs/nginx/access.log' %> l2met;
 	error_log <%= ENV['NGINX_ERROR_LOG_PATH'] || 'logs/nginx/error.log' %>;
+	error_page 404 = '/public/misc/error.html';
 
 
 	include mime.types;
